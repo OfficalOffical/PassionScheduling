@@ -7,8 +7,8 @@ def MLFQ(x,y):
     temp = req.reqTime(y)
 
 
-    highPriority(x,y,(temp*0.5),aT)#SJF
-    print(aT)
+    highPriority(x,y,(temp*0.5))#SJF
+
 
 
 
