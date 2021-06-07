@@ -10,6 +10,7 @@ def reqTime(x):
 
 def findShortest(x, y):
     temp = 100000
+
     shortest = -1
 
     if (x[0] == 0 and y[0] != 0):
