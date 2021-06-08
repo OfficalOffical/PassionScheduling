@@ -41,9 +41,6 @@ def MLFQ(x,y):
     tempY = highPriority(x,y,(temp*0.5))#SJF  hoca hepsine ayrı time derse buraya tempx
     medPriority(x,tempY,(temp*0.3),5) # buraya da x yerine tempX yaz
 
-    print("vololo2")
-    printList()
-    print("vololo2")
 
 
 def highPriority(x, y, ratio):#SJF
@@ -57,15 +54,20 @@ def highPriority(x, y, ratio):#SJF
         if (temp != -1):
             tempY[temp] -=1
             checkStartEnd(i,temp,tempY[temp])
-
         else:
             idleTime += 1
-
-    return tempX,tempY
+    return tempY #Buraya temp X ekleyebilirsin
 
 def medPriority(x,tempY, ratio,q):
-    for x in range(int(ratio)):
-        if(x%q == 0)
+    temp = 0
+    for i in range(int(ratio)): # O(N^3)
+        if(i % 4 == 0):
+            temp = ((temp+1)%3)
+        print(temp)
+
+
+
+
 
 def checkStartEnd(time,ID,var):
     for p in pList:
@@ -79,3 +81,5 @@ def checkStartEnd(time,ID,var):
 def printList():
     for obj in pList:
         print(obj.ID, obj.start,obj.end, sep=' ')
+
+
