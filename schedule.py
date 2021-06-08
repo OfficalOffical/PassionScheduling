@@ -63,22 +63,18 @@ def medPriority(x,tempY, ratio,q):
     temp = 0
     k=0
     while True:
+        if(int(tempY[temp]/4)>1): #Az beynini zorlasan olcak sanki
+            for i in range(4):
+                tempY[temp]-=1
+                time+=1
+        else:
+            for i in range()
 
-        tempY[temp]
 
         temp = ((temp+1)%3)
         time += 1
         if(time == 50):
             break
-
-
-
-
-
-
-
-
-
 
 
 def checkStartEnd(time,ID,var):
