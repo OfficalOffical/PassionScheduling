@@ -23,7 +23,13 @@ def MLFQ(x,y):
     print(x)
     print(y)
     temp = req.reqTime(y)
-    highPriority(x,y,(temp*0.5),100)#SJF
+    global P1,P2,P3
+    P1 = process(0, -1, -1)
+    P2 = process(1, -1, -1)
+    P3 = process(2, -1, -1)
+
+    highPriority(x,y,(temp*0.5))#SJF
+    print(P1.start)
 
 
 
@@ -31,8 +37,7 @@ def MLFQ(x,y):
 
 
 
-
-def highPriority(x, y, ratio, averageTime):#SJF
+def highPriority(x, y, ratio):#SJF
     global idleTime #May i put waiting time to other scheduling algo's
     idleTime=0
     tempX = x
@@ -41,12 +46,17 @@ def highPriority(x, y, ratio, averageTime):#SJF
     for i in range(int(ratio)):
         temp = req.findShortest(tempX,tempY)
         if (temp != -1):
-            print(tempY[temp])
+            print(i," : ",tempY[temp])
+            print(temp)
             tempY[temp] -=1
         else:
             idleTime += 1
     print(":", idleTime)
     print(tempX,tempY)
     return tempY
+
+def checkStartEnd(time,ID):
+    if(ID == 0):
+
 
 
