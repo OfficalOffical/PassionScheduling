@@ -23,13 +23,17 @@ def MLFQ(x,y):
     print(x)
     print(y)
     temp = req.reqTime(y)
-    global P1,P2,P3
-    P1 = process(0, -1, -1)
-    P2 = process(1, -1, -1)
-    P3 = process(2, -1, -1)
+    global pList
+    pList = []
+    pList.append(process(0, -1, -1))
+    pList.append(process(0, -1, -1))
+    pList.append(process(0, -1, -2))
 
     highPriority(x,y,(temp*0.5))#SJF
-    print(P1.start)
+    checkStartEnd(1,1)
+
+
+
 
 
 
@@ -56,7 +60,10 @@ def highPriority(x, y, ratio):#SJF
     return tempY
 
 def checkStartEnd(time,ID):
-    if(ID == 0):
+    for x in pList:
+        print(x.end)
+        x.end=1
+
 
 
 
