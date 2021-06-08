@@ -59,11 +59,23 @@ def highPriority(x, y, ratio):#SJF
     return tempY #Buraya temp X ekleyebilirsin
 
 def medPriority(x,tempY, ratio,q):
+    time = 0
     temp = 0
-    for i in range(int(ratio)): # O(N^3)
-        if(i % 4 == 0):
-            temp = ((temp+1)%3)
-        print(temp)
+    k=0
+    while True:
+
+        tempY[temp]
+
+        temp = ((temp+1)%3)
+        time += 1
+        if(time == 50):
+            break
+
+
+
+
+
+
 
 
 

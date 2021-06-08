@@ -3,7 +3,7 @@ import schedule
 
 
 x = random.poisson(lam=4, size=3)
-y = random.poisson(lam=10, size=3)
+y = random.poisson(lam=100, size=3)
 
 
 
