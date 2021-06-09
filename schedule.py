@@ -39,8 +39,11 @@ def MLFQ(x,y):
     pList.append(process(2, -1, -1))
 
     tempY = highPriority(x,y,(temp*0.5))#SJF  hoca hepsine ayrı time derse buraya tempx
-    tempY = medPriority(x,tempY,(temp*0.3),(temp*0.5)) # buraya da x yerine tempX yaz
-    tempY = lowPriority(x, tempY, (temp * 0.8))
+    tempY = medPriority(tempY,(temp*0.3),(temp*0.5)) # buraya da x yerine tempX yaz
+    tempY = lowPriority(tempY, (temp * 0.8))
+    printList()
+    print(tempY)
+
 
 
 
@@ -59,13 +62,12 @@ def highPriority(x, y, ratio):#SJF
             idleTime += 1
     return tempY #Buraya temp X ekleyebilirsin
 
-def medPriority(x,tempY, ratio,realTime):
+def medPriority(tempY, ratio,realTime):
     realTime = int(realTime)
     ratio = int(ratio)
-
+    print("denis :",tempY)
     time = 0
     temp = 0
-    print(ratio)
     while True:
         if((tempY[temp]/4)>1.0): #Az beynini zorlasan olcak sanki
             for i in range(4):
@@ -74,6 +76,7 @@ def medPriority(x,tempY, ratio,realTime):
                 else:
                     if((tempY[temp]-1) == 0):
                         checkStartEnd((realTime+time),temp,0)
+                    checkStartEnd((realTime+time), temp, -1)
                     tempY[temp]-=1
                     time+=1
 
@@ -84,6 +87,7 @@ def medPriority(x,tempY, ratio,realTime):
                 else:
                     if ((tempY[temp] - 1) == 0):
                         checkStartEnd((realTime+time), temp, 0)
+                    checkStartEnd((realTime + time), temp, -1)
                     tempY[temp]-=1
                     time+=1
 
@@ -93,22 +97,27 @@ def medPriority(x,tempY, ratio,realTime):
 
     return tempY
 
-def lowPriority(x,y,realTime):
+def lowPriority(y,realTime):
     realTime = int(realTime)
     time = 0
     temp = 0
-    while(pList[0].end != -1 or pList[1].end != -1 or pList[2].end != -1):
+    p = pList
+    while True:
         while True:
+            if(y[temp] == 0):
+                break
             if ((y[temp] - 1) == 0):
                 checkStartEnd((realTime + time), temp, 0)
                 y[temp] -=1
                 time+=1
                 break
             else:
+                checkStartEnd((realTime + time), temp, -1)
                 y[temp] -= 1
                 time += 1
         temp = ((temp + 1) % 3)
-
+        if(pList[0].end != -1 and pList[1].end != -1 and pList[2].end != -1):
+            break
     return y
 
 
@@ -122,9 +131,6 @@ def checkStartEnd(time,ID,var):
             elif(p.end == -1 and var == 0):
                 p.end = (time+1)
 
-
 def printList():
     for obj in pList:
         print(obj.ID, obj.start,obj.end, sep=' ')
-
-
