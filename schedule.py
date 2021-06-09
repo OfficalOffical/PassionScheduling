@@ -39,7 +39,9 @@ def MLFQ(x,y):
     pList.append(process(2, -1, -1))
 
     tempY = highPriority(x,y,(temp*0.5))#SJF  hoca hepsine ayrı time derse buraya tempx
-    medPriority(x,tempY,(temp*0.3),5) # buraya da x yerine tempX yaz
+    tempY = medPriority(x,tempY,(temp*0.3),(temp*0.5)) # buraya da x yerine tempX yaz
+
+    printList()
 
 
 
@@ -58,22 +60,41 @@ def highPriority(x, y, ratio):#SJF
             idleTime += 1
     return tempY #Buraya temp X ekleyebilirsin
 
-def medPriority(x,tempY, ratio,q):
+def medPriority(x,tempY, ratio,realTime):
+    realTime = int(realTime)
+    ratio = int(ratio)
+
     time = 0
     temp = 0
+    print(ratio)
     k=0
     while True:
-        if(int(tempY[temp]/4)>1): #Az beynini zorlasan olcak sanki
+        if((tempY[temp]/4)>1.0): #Az beynini zorlasan olcak sanki
             for i in range(4):
-                tempY[temp]-=1
-                time+=1
-        else:
-            for i in range()
+                if(time == ratio):
+                    print("karo")
+                    break;
+                else:
+                    if((tempY[temp]-1) == 0):
+                        checkStartEnd((realTime+time),temp,0)
 
+                    tempY[temp]-=1
+                    time+=1
+
+        else:
+            for i in range(tempY[temp]):
+                if(time == ratio):
+                    print("paro")
+                    break
+                else:
+                    if ((tempY[temp] - 1) == 0):
+                        checkStartEnd((realTime+time), temp, 0)
+                    tempY[temp]-=1
+                    time+=1
 
         temp = ((temp+1)%3)
-        time += 1
-        if(time == 50):
+        if(time == ratio):
+            print("taro")
             break
 
 
