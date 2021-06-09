@@ -40,8 +40,8 @@ def MLFQ(x,y):
 
     tempY = highPriority(x,y,(temp*0.5))#SJF  hoca hepsine ayrı time derse buraya tempx
     tempY = medPriority(x,tempY,(temp*0.3),(temp*0.5)) # buraya da x yerine tempX yaz
+    tempY = lowPriority(x, tempY, (temp * 0.8))
 
-    printList()
 
 
 
@@ -50,7 +50,6 @@ def highPriority(x, y, ratio):#SJF
     idleTime=0
     tempX = x
     tempY = y
-    temp = 0
     for i in range(int(ratio)):
         temp = req.findShortest(tempX,tempY)
         if (temp != -1):
@@ -67,24 +66,20 @@ def medPriority(x,tempY, ratio,realTime):
     time = 0
     temp = 0
     print(ratio)
-    k=0
     while True:
         if((tempY[temp]/4)>1.0): #Az beynini zorlasan olcak sanki
             for i in range(4):
                 if(time == ratio):
-                    print("karo")
                     break;
                 else:
                     if((tempY[temp]-1) == 0):
                         checkStartEnd((realTime+time),temp,0)
-
                     tempY[temp]-=1
                     time+=1
 
         else:
             for i in range(tempY[temp]):
                 if(time == ratio):
-                    print("paro")
                     break
                 else:
                     if ((tempY[temp] - 1) == 0):
@@ -94,8 +89,29 @@ def medPriority(x,tempY, ratio,realTime):
 
         temp = ((temp+1)%3)
         if(time == ratio):
-            print("taro")
             break
+
+    return tempY
+
+def lowPriority(x,y,realTime):
+    realTime = int(realTime)
+    time = 0
+    temp = 0
+    while(pList[0].end != -1 or pList[1].end != -1 or pList[2].end != -1):
+        while True:
+            if ((y[temp] - 1) == 0):
+                checkStartEnd((realTime + time), temp, 0)
+                y[temp] -=1
+                time+=1
+                break
+            else:
+                y[temp] -= 1
+                time += 1
+        temp = ((temp + 1) % 3)
+
+    return y
+
+
 
 
 def checkStartEnd(time,ID,var):
