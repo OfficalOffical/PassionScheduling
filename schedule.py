@@ -30,11 +30,7 @@ def MLFQ(x, y):
 
 
     t1,tempY = highPriority(x, y, (temp * 0.5))  # SJF  hoca hepsine ayrı time derse buraya tempx
-    printLast(temp, 1,1,1)
-    print("1111111111")
     t2,tempY = medPriority(tempY, (temp * 0.3), (temp * 0.5))  # buraya da x yerine tempX yaz
-    printLast(temp, t1, 1,1)
-    print("1111111111")
     t3,tempY = lowPriority(tempY, (temp * 0.8))
     printLast(temp,t1,t2,t3)
 
@@ -107,7 +103,7 @@ def lowPriority(y, realTime):
                 y[temp] -= 1
                 time += 1
         temp = ((temp + 1) % len(pList))
-        if (pList[0].end != -1 and pList[1].end != -1 and pList[2].end != -1):
+        if (endCheck()):
             break
     return time,y
 
@@ -120,13 +116,18 @@ def checkStartEnd(time, ID, var):
             elif (p.end == -1 and var == 0):
                 p.end = (time + 1)
 
+def endCheck():
+    for obj in pList:
+        if(obj.end == -1):
+            return False
+    return True
 
 def printLast(globalTime,t1,t2,t3):
-  #  for obj in pList:
-
-      #  print("P", obj.ID, "-> Waiting Time :", obj.start, "Turn Around Time :", (obj.end - obj.start), )
     for obj in pList:
-        print(obj.ID, obj.start, obj.end, sep=' ')
+        print("P", obj.ID, "-> Waiting Time :", obj.start, "Turn Around Time :", (obj.end - obj.start), )
+    #for obj in pList:
+        #print(obj.ID, obj.start, obj.end, sep=' ')
+
 
 
 """
