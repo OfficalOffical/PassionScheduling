@@ -13,14 +13,16 @@ def findShortest(x, y):
 
     shortest = -1
 
-    if (x[0] == 0 and y[0] != 0):
-        if (y[0] < temp):
-            temp = y[0]
-            shortest = 0
-    else:
-        if (x[0] > 0):
-            x[0] -= 1
-
+    for i in range(len(x)):
+        if(x[i] == 0 and y[i] != 0):
+            if (y[i] < temp):
+                temp = y[i]
+                shortest = i
+        else:
+            if (x[i] > 0):
+                    x[i] -= 1
+    return shortest
+"""
     if (x[1] == 0 and y[1] != 0):
         if (y[1] < temp):
             temp = y[1]
@@ -36,6 +38,6 @@ def findShortest(x, y):
     else:
         if (x[2] > 0):
             x[2] -= 1
+"""
 
-    return shortest
 

@@ -35,26 +35,30 @@ def MLFQ():
     for i in range(len(x1)):
         pList.append(process(i,-1,-1))
 
-    print("Y1:", y1, " Y2:", y2, " Y3:", y3, "\n")
+    print("X1:",x1,"\nY1:",y1)
     print("----------------------------------")
     t1,tempY1  = highPriority(x1, y1, (timeSum * 0.5))  # SJF  hoca hepsine ayrı time derse buraya tempx
-    print("Y1:", y1, " Y2:", y2, " Y3:", y3, "\n")
+    printLast(timeSum, t1, 1, 1)
+    print("Origin X1:", x1, "\nY1:", y1)
+    print("temp X1:",x1,"\nY1:",tempY1)
     print("----------------------------------")
     t2,tempY2 = medPriority(y2, (timeSum * 0.3), (timeSum * 0.5))  # buraya da x yerine tempX yaz
     print("s2")
     t3,tempY3 = lowPriority(y3, (timeSum * 0.8))
-    print("Y1:",y1," Y2:",y2," Y3:",y3,"\n")
-    print("tempY1:", tempY1, " tempY2:", tempY2, " tempY3:", tempY3, "\n")
 
 
-    printLast(timeSum,t1,t2,t3)
+
+    #printLast(timeSum,t1,t2,t3)
 
 def highPriority(x, y, ratio):  # SJF
     # May i put waiting time to other scheduling algo's
     global idleTime
+    ratio = int(ratio)
+    print(ratio)
     tempX = x
     tempY = y
-    for i in range(int(ratio)):
+    print(tempX,tempY)
+    for i in range(ratio):
         temp = req.findShortest(tempX, tempY)
         if (temp != -1):
             tempY[temp] -= 1
