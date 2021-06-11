@@ -16,8 +16,8 @@ class process:
 
 def MLFQ():
 
-    x1 = random.poisson(lam=2, size=10)
-    y1 = random.poisson(lam=10, size=10)
+    x1 = random.poisson(lam=2, size=15)
+    y1 = random.poisson(lam=10, size=15)
     x2 = random.poisson(lam=2, size=10)
     y2 = random.poisson(lam=10, size=10)
     x3 = random.poisson(lam=2, size=10)
@@ -27,16 +27,13 @@ def MLFQ():
     timeSum += req.reqTime(y2)
     timeSum += req.reqTime(y3)
     print("MasterClock : ",timeSum)
-    global pList
+
     global idleTime
     idleTime = 0
 
-    pList = []
-    for i in range(len(x1)):
-        pList.append(process(i,-1,-1))
+    init(x1,x2,x3)
 
-    print("X1:",x1,"\nY1:",y1)
-    print("----------------------------------")
+
     t1,tempY1  = highPriority(x1, y1, (timeSum * 0.5))  # SJF  hoca hepsine ayrı time derse buraya tempx
     printLast(timeSum, t1, 1, 1)
     print("Origin X1:", x1, "\nY1:", y1)
@@ -65,6 +62,7 @@ def highPriority(x, y, ratio):  # SJF
             checkStartEnd(i, temp, tempY[temp])
         else:
             idleTime += 1
+
     return range(int(ratio)),tempY  # Buraya temp X ekleyebilirsin
 
 
@@ -127,13 +125,30 @@ def lowPriority(y, realTime):
     return time,y
 
 
-def checkStartEnd(time, ID, var):
+def checkStartEndHigh(time, ID, var):
     for p in pList:
         if (p.ID == ID):
             if (p.start == -1):
                 p.start = time
             elif (p.end == -1 and var == 0):
                 p.end = (time + 1)
+
+def checkStartEndMed(time, ID, var):
+    for p in pList:
+        if (p.ID == ID):
+            if (p.start == -1):
+                p.start = time
+            elif (p.end == -1 and var == 0):
+                p.end = (time + 1)
+
+def checkStartEndLow(time, ID, var):
+    for p in pList:
+        if (p.ID == ID):
+            if (p.start == -1):
+                p.start = time
+            elif (p.end == -1 and var == 0):
+                p.end = (time + 1)
+
 
 def endCheck():
     for obj in pList:
@@ -147,6 +162,19 @@ def printLast(globalTime,t1,t2,t3):
     #for obj in pList:
         #print(obj.ID, obj.start, obj.end, sep=' ')
 
+def init(x1,x2,x3):
+    global pList
+    global pList2
+    global pList3
+    pList = []
+    pList2 = []
+    pList3 = []
+    for i in range(len(x1)):
+        pList.append(process(i,-1,-1))
+    for i in range(len(x2)):
+        pList2.append(process(i,-1,-1))
+    for i in range(len(x3)):
+        pList3.append(process(i,-1,-1))
 
 
 """
