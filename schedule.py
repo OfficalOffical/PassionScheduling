@@ -1,5 +1,5 @@
 import req
-
+from numpy import random
 
 # Turnaround time = Exit time - Arrival time
 # Turnaround time = Burst time + Waiting time
@@ -14,22 +14,24 @@ class process:
         self.end = end
 
 
-def MLFQ(x, y):
-    for i in range(3):
-        print("P",i,"-> Arrival Time :" ,x[i],"Burst time :",y[i])
-    print("\n///////////////////////////////////////\n")
-    temp = req.reqTime(y)
+def MLFQ():
+
+    x1 = random.poisson(lam=2, size=10)
+    y1 = random.poisson(lam=10, size=10)
+
+
+    tempY1 = req.reqTime(y1)
     global pList
     global idleTime
     idleTime = 0
 
     pList = []
-    for i in range(len(x)):
+    for i in range(len(x1)):
         pList.append(process(i,-1,-1))
 
 
 
-    t1,tempY = highPriority(x, y, (temp * 0.5))  # SJF  hoca hepsine ayrı time derse buraya tempx
+    t1,tempY = highPriority(x1, y1, (tempY1 * 0.5))  # SJF  hoca hepsine ayrı time derse buraya tempx
     t2,tempY = medPriority(tempY, (temp * 0.3), (temp * 0.5))  # buraya da x yerine tempX yaz
     t3,tempY = lowPriority(tempY, (temp * 0.8))
     printLast(temp,t1,t2,t3)
